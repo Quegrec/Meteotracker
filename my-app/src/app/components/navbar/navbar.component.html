@@ -1,0 +1,13 @@
+<header class="flex justify-between h-20 items-center bg-white sm:bg-opacity-50 border-b-2 border-black">
+    <img class="sm:ml-10 max-h-12" src=".\assets\MeteoTracker.png" href="" alt="MeteoTracker">
+    <div class="container flex justify-evenly">
+      <a class="text-blue-600 text-2xl font-bold hover:text-red-700 hover:underline" href="/user">Mon historique</a>
+      <div class="flex justify-between justify-self-end gap-10">
+        <div class="flex">
+          <img class="h-8 rounded-full" [src]="profile.picture" alt="Photo de profil">
+          <a class="text-purple-800 text-2xl font-bold">{{ profile.name }}</a>
+        </div>
+        <button class="hover:text-blue-600 text-2xl font-bold text-red-700 hover:underline justify-self-end" (click)="logOut()">Log Out</button>
+      </div>
+    </div>
+</header>

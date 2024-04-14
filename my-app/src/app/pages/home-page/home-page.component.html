@@ -1,0 +1,11 @@
+<div>
+  <app-navbar></app-navbar>
+  <div *ngIf="profile; else notLoggedIn">
+
+    <app-map (locationFound)="onLocationFound($event)"/>
+  </div>
+
+  <ng-template #notLoggedIn>
+    <app-google-log-in/>
+  </ng-template>
+</div>
