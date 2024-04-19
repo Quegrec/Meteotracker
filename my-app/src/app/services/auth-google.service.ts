@@ -24,7 +24,7 @@ export class AuthGoogleService {
       issuer: 'https://accounts.google.com',
       strictDiscoveryDocumentValidation: false,
       clientId: environment.googleClientId,
-      redirectUri: 'https://quegrec.github.io/Meteotracker' + '/home',
+      redirectUri: environment.homeUrl,
       scope: 'openid profile email',
       responseType: 'token id_token',
     };

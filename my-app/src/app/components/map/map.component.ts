@@ -1,9 +1,11 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import * as L from 'leaflet';
+import { DetailsComponent } from '../../pages/details/details.component';
 
 @Component({
   selector: 'app-map',
   standalone: true,
+  imports: [DetailsComponent],
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
@@ -12,6 +14,10 @@ export class MapComponent implements OnInit {
   private map: any;
   city: string = '';
   weatherInfo: string = '';
+  weatherIcon: string = '';
+  weatherDescription: string = '';
+  showAppDetails: boolean = false;
+
 
   @Output() locationFound = new EventEmitter<any>();
 
@@ -50,7 +56,9 @@ export class MapComponent implements OnInit {
               .then(response => response.json())
               .then(data => {
                 if (data.cod === 200) {
-                  this.weatherInfo = `il fait ${data.main.temp}°C et en levant les yeux vous pourrez apperçevoir un ${data.weather[0].description}.`;
+                  this.weatherInfo = `il fait ${data.main.temp}°C et le temps est`;
+                  this.weatherIcon = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
+                  this.weatherDescription = data.weather[0].description;
                 } else {
                   this.weatherInfo = 'Un problème est survenu.';
                 }
@@ -69,12 +77,20 @@ export class MapComponent implements OnInit {
     }
   }
 
+  toggleDetails(): void {
+    this.showAppDetails = !this.showAppDetails;
+  }
+
   onLocationFound(e: any): void {
     if (this.map) {
-      const radius = e.accuracy;
+      const radius = Math.round(e.accuracy);
 
+      if (radius < 100) {
       L.marker(e.latlng).addTo(this.map)
-        .bindPopup("vous êtes à environ " + radius + " metres de ce point, désolé de l'imprécision.").openPopup();
+      } else {
+        L.marker(e.latlng).addTo(this.map)
+          .bindPopup("vous êtes à environ " + radius + " metres de ce point, désolé de l'imprécision.").openPopup();
+      }
 
       L.circle(e.latlng, { radius: radius }).addTo(this.map);
 

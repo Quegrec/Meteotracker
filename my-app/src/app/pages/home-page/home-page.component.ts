@@ -47,13 +47,17 @@ export class HomePageComponent implements OnInit {
     this.sendSessionData();
   }
 
-  sendSessionData() {
+  sendSessionData(): void {
     if (this.profile && this.locationData) {
+      
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      console.log('Timezone:', timezone);
       
       const sessionData = {
         email: this.profile.email,
         lat: this.locationData.lat,
-        lng: this.locationData.lng
+        lng: this.locationData.lng,
+        timezone: timezone
       };
       console.log('Session data:', sessionData);
       this.sessionService.createSession(sessionData).subscribe({
