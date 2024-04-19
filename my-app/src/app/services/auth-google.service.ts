@@ -24,7 +24,7 @@ export class AuthGoogleService {
       issuer: 'https://accounts.google.com',
       strictDiscoveryDocumentValidation: false,
       clientId: environment.googleClientId,
-      redirectUri: environment.homeUrl,
+      redirectUri: environment.host + '/home',
       scope: 'openid profile email',
       responseType: 'token id_token',
     };
