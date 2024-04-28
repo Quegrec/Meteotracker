@@ -16,7 +16,6 @@ export class MapComponent implements OnInit {
   weatherInfo: string = '';
   weatherIcon: string = '';
   weatherDescription: string = '';
-  showAppDetails: boolean = false;
 
 
   @Output() locationFound = new EventEmitter<any>();
@@ -31,11 +30,11 @@ export class MapComponent implements OnInit {
     this.map = L.map('map').setView([0, 0], 2);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 20,
+      maxZoom: 19,
       attribution: '© OpenStreetMap'
     }).addTo(this.map);
 
-    this.map.locate({ setView: true, maxZoom: 20 });
+    this.map.locate({ setView: true, maxZoom: 19 });
 
     this.map.on('locationfound', this.onLocationFound.bind(this));
     this.map.on('locationerror', this.onLocationError.bind(this));
@@ -56,7 +55,7 @@ export class MapComponent implements OnInit {
               .then(response => response.json())
               .then(data => {
                 if (data.cod === 200) {
-                  this.weatherInfo = `il fait ${data.main.temp}°C et le temps est`;
+                  this.weatherInfo = `il fait ${Math.round(data.main.temp)}°C et le temps est`;
                   this.weatherIcon = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
                   this.weatherDescription = data.weather[0].description;
                 } else {
@@ -77,22 +76,22 @@ export class MapComponent implements OnInit {
     }
   }
 
-  toggleDetails(): void {
-    this.showAppDetails = !this.showAppDetails;
-  }
-
   onLocationFound(e: any): void {
     if (this.map) {
       const radius = Math.round(e.accuracy);
 
-      if (radius < 100) {
-      L.marker(e.latlng).addTo(this.map)
-      } else {
-        L.marker(e.latlng).addTo(this.map)
-          .bindPopup("vous êtes à environ " + radius + " metres de ce point, désolé de l'imprécision.").openPopup();
-      }
+      const customIcon = L.icon({
+        iconUrl: 'assets/MeteoTracker.png',
+        iconSize: [31, 31]
+      });
 
-      L.circle(e.latlng, { radius: radius }).addTo(this.map);
+      if (radius < 100) {
+      L.marker(e.latlng, {icon: customIcon}).addTo(this.map)
+      } else {
+        L.marker(e.latlng, {icon: customIcon}).addTo(this.map)
+          .bindPopup("vous êtes à environ " + radius + " metres de ce point, désolé de l'imprécision.").openPopup();
+          L.circle(e.latlng, { radius: radius }).addTo(this.map);
+      }
 
     }
   }
@@ -100,4 +99,9 @@ export class MapComponent implements OnInit {
   onLocationError(e: any): void {
     alert(e.message);
   }
+
+  goBackToLocalisation(): void {
+    this.map.locate({ setView: true, maxZoom: 19 });
+  }
+
 }

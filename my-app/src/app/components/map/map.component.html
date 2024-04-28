@@ -1,11 +1,11 @@
 <div class="border-black border-2 sm:m-16 relative">
-  <div class="bg-slate-700 bg-opacity-75 text-white p-4 flex flex-col place-items-center w-[60%] sm:w-fit z-10 absolute top-0 right-0">
+  <div class="bg-slate-700 bg-opacity-75 rounded-es-full text-white pl-12 p-4 flex flex-col place-items-center w-[60%] sm:w-fit z-10 absolute top-0 right-0">
     <p>Vous êtes à {{ city }},</p>
     <div>
       <p>{{ weatherInfo }}</p>
-      <img class="mx-auto" src="{{ weatherIcon }}" alt="{{ weatherDescription }}" title="{{ weatherDescription }}" (click)="toggleDetails()">
+      <img class="mx-auto" src="{{ weatherIcon }}" alt="{{ weatherDescription }}" title="{{ weatherDescription }}">
     </div>
   </div>
-  <div class="z-0 h-[700px] invert-[.75] " id="map"></div>
-  <app-details></app-details>
+  <div class="z-0 h-[700px] invert-[.80]" id="map"></div>
+  <button (click)="goBackToLocalisation()">Go back to initial localization</button>
 </div>

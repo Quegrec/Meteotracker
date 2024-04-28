@@ -1,11 +1,4 @@
-<div>
+<div class="sm:bg-[url('assets/magic-circle.png')] bg-cover h-[100%] top-[-100px]">
   <app-navbar></app-navbar>
-  <div *ngIf="profile; else notLoggedIn">
-
     <app-map (locationFound)="onLocationFound($event)"/>
-  </div>
-
-  <ng-template #notLoggedIn>
-    <app-google-log-in/>
-  </ng-template>
 </div>
