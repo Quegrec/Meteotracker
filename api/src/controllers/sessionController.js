@@ -23,8 +23,7 @@ export const createSession = async (req, res) => {
         const currentTime = moment().format('HH:mm');
         const newSession = new Session({
         email,
-        lat,
-        lng,
+        city,
         timezone: weatherData.timezone,
         temperature: weatherData.temperature,
         weather: weatherData.weather,

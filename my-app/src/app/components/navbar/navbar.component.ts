@@ -46,6 +46,7 @@ export class NavbarComponent {
     if (this.profile && this.locationData) {
       const sessionData = {
         email: this.profile.email,
+        city: this.locationData.city || this.locationData.town || this.locationData.village || 'Unknown',
         lat: this.locationData.lat,
         lng: this.locationData.lng
       };

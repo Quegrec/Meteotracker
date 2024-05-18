@@ -4,6 +4,6 @@ import { createSession } from '../controllers/sessionController.js';
 
 const router = express.Router();
 
-router.post('/', createSession);
+router.post('/create', createSession);
 
 export default router;

@@ -55,6 +55,7 @@ export class HomePageComponent implements OnInit {
       
       const sessionData = {
         email: this.profile.email,
+        city: this.locationData.city || this.locationData.town || this.locationData.village || 'Unknown',
         lat: this.locationData.lat,
         lng: this.locationData.lng,
         timezone: timezone

@@ -10,7 +10,8 @@ export class SessionService {
   private apiUrl = `${environment.apiUrl}/api/sessions`;
   constructor(private http: HttpClient) {}
 
-  createSession(sessionData: { email: string, lat: number, lng: number }) {
+  createSession(sessionData: { email: string, city: string, lat: number, lng: number }) {
+    localStorage.setItem('sessionData', JSON.stringify(sessionData));
     return this.http.post(`${this.apiUrl}`, sessionData);
   }
 
