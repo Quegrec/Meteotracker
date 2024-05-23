@@ -18,7 +18,6 @@ export const createSession = async (req, res) => {
     try {
         // Appel au service météo pour enrichir les données
         const weatherData = await fetchWeatherData(lat, lng);
-
         const currentDate = moment().format('DD/MM/YYYY');
         const currentTime = moment().format('HH:mm');
         const newSession = new Session({
