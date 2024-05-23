@@ -99,9 +99,4 @@ export class MapComponent implements OnInit {
   onLocationError(e: any): void {
     alert(e.message);
   }
-
-  goBackToLocalisation(): void {
-    this.map.locate({ setView: true, maxZoom: 19 });
-  }
-
 }
